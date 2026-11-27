@@ -390,11 +390,11 @@
         const RE_PACKS = [{"id": "45", "label": "45 kWh (489 km MIDC)", "kwh": 45, "midc": 489, "c75": 365}, {"id": "30", "label": "30 kWh MR (275 km MIDC)", "kwh": 30, "midc": 275, "c75": 220}];
         const reState = { packId: RE_PACKS[0].id, ac: 'off', traffic: 'light', terrain: 'flat', weather: 'mild', pax: 1, mode: 'eco' };
         const RE_FACTORS = {
-          ac: { off: 1.00, med: 0.93, high: 0.85 },
-          traffic: { light: 1.00, normal: 0.94, heavy: 0.86 },
-          terrain: { flat: 1.00, mixed: 0.92, hilly: 0.80 },
-          weather: { mild: 1.00, hot: 0.92, cold: 0.84 },
-          mode: { eco: 1.00, city: 0.91, sport: 0.78 }
+          ac: { off: 1.06, med: 1.00, high: 0.94 },
+          traffic: { light: 1.04, normal: 1.00, heavy: 0.93 },
+          terrain: { flat: 1.02, mixed: 1.00, hilly: 0.89 },
+          weather: { mild: 1.02, hot: 0.96, cold: 0.92 },
+          mode: { eco: 1.06, city: 1.00, sport: 0.90 }
         };
 
         function setRePack(id) { reState.packId = id; updateRangeEst(); }
