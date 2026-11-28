@@ -152,46 +152,62 @@ const ALL_UPDATED_POSTS = [
     img: "/assets/thumbs/hyundai-ioniq-p-ev.webp",
     sub: "Sub-4m SUV • Jan 2027",
     excerpt: "Hyundai's India-focused sub-4-metre electric SUV expected price, battery range & launch timeline."
+  },
+  {
+    title: "VinFast VF5 India Review, Expected Price & Range Specs",
+    shortTitle: "VinFast VF5 India Review & Range",
+    updated: "Updated Nov 25, 2026",
+    category: "VinFast EV",
+    segment: "commuter",
+    url: "/vinfast-vf5",
+    img: "/assets/thumbs/vinfast-vf5.webp",
+    sub: "Compact EV • 37.23 kWh",
+    excerpt: "VinFast VF5 expected India price, 37.23 kWh battery range, charging time & compact city EV breakdown."
   }
 ];
 
-function renderThumb(item, cls) {
-  if (item.img) {
-    return `<div class="${cls}"><img src="${item.img}" alt="${item.shortTitle}" loading="lazy" decoding="async" referrerpolicy="no-referrer" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" /></div>`;
-  }
-  return `<div class="${cls} flex items-center justify-center bg-emerald-100 text-emerald-700"><svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h2M12 14h4M8 18h2M12 18h4"/></svg></div>`;
+function renderEvCard(item) {
+  const thumb = item.img
+    ? `<div class="aspect-[16/10] w-full bg-slate-50 overflow-hidden border-b border-emerald-100"><img src="${item.img}" alt="${item.shortTitle}" loading="lazy" decoding="async" referrerpolicy="no-referrer" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" /></div>`
+    : `<div class="aspect-[16/10] w-full bg-emerald-100/70 flex items-center justify-center text-emerald-700 border-b border-emerald-100"><svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h2M12 14h4M8 18h2M12 18h4"/></svg></div>`;
+
+  return `
+    <a href="${item.url}" class="group rounded-2xl border border-emerald-200 bg-white overflow-hidden shadow-sm hover:border-emerald-400 hover:shadow-md transition flex flex-col justify-between">
+      <div>
+        ${thumb}
+        <div class="p-4 sm:p-5">
+          <span class="inline-block rounded-md bg-emerald-100 text-emerald-800 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider mb-2.5">${item.category}</span>
+          <h3 class="text-base sm:text-lg font-extrabold text-slate-900 group-hover:text-emerald-700 leading-snug line-clamp-2 transition">${item.title}</h3>
+          <p class="text-xs sm:text-sm text-slate-600 mt-2 line-clamp-2 leading-relaxed">${item.excerpt}</p>
+        </div>
+      </div>
+      <div class="px-4 sm:px-5 pb-4 pt-3 border-t border-emerald-100 flex items-center justify-between text-[11px] text-slate-500">
+        <span class="inline-flex items-center gap-1.5 font-semibold text-slate-700">
+          <span class="w-5 h-5 rounded-full bg-emerald-600 text-white text-[10px] font-bold flex items-center justify-center shrink-0">S</span>
+          Sumit Roy
+        </span>
+        <span class="font-semibold text-emerald-700">${item.updated.replace("Updated ", "")}</span>
+      </div>
+    </a>
+  `;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function renderEvFeeds() {
   const curPath = window.location.pathname.replace(/\.html$/, "") || "/";
   const currentPost = ALL_UPDATED_POSTS.find(p => p.url === curPath);
   const currentSeg = currentPost ? currentPost.segment : null;
 
-  // 1. Latest / Recently Updated Posts (top 4 most recently updated, excluding current page)
-  const latestItems = ALL_UPDATED_POSTS.filter(p => p.url !== curPath).slice(0, 4);
+  // 1. Latest EV Posts & News (top 3 newest, excluding current page; auto-rotates as new posts are added at top)
+  const latestItems = ALL_UPDATED_POSTS.filter(p => p.url !== curPath).slice(0, 3);
   const latestUrls = new Set(latestItems.map(p => p.url));
 
   const box = document.getElementById("latest-news-grid");
   if (box) {
-    box.className = "space-y-3";
-    box.innerHTML = latestItems.map((n, i) => `
-      <a href="${n.url}" class="group flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-emerald-200 bg-white p-3.5 sm:p-4 hover:border-emerald-400 hover:bg-emerald-50/40 transition">
-        <div class="flex items-start sm:items-center gap-3.5 min-w-0">
-          ${renderThumb(n, "w-24 h-16 sm:w-32 sm:h-20 rounded-xl overflow-hidden bg-slate-50 border border-emerald-100 shrink-0")}
-          <div class="min-w-0">
-            <div class="flex flex-wrap items-center gap-2 text-[11px] font-bold text-emerald-700 mb-1">
-              <span>#${i + 1} ${n.category}</span><span class="text-slate-400">&bull; ${n.updated}</span>
-            </div>
-            <h3 class="font-bold text-slate-900 group-hover:text-emerald-700 text-sm sm:text-base line-clamp-2">${n.title}</h3>
-            <p class="text-xs text-slate-600 mt-1 line-clamp-2">${n.excerpt}</p>
-          </div>
-        </div>
-        <span class="text-xs font-bold text-emerald-700 shrink-0 self-end sm:self-center">Read Post &rarr;</span>
-      </a>
-    `).join("");
+    box.className = "grid grid-cols-1 md:grid-cols-3 gap-5";
+    box.innerHTML = latestItems.map(renderEvCard).join("");
   }
 
-  // 2. Related Posts (prioritize same segment & recent updates, avoiding duplicates with Latest where possible)
+  // 2. Related EV Posts (3 posts, prioritizing same segment & newest, avoiding duplicates with Latest where possible)
   const relBox = document.getElementById("related-posts-grid");
   if (relBox) {
     const candidates = ALL_UPDATED_POSTS.filter(p => p.url !== curPath);
@@ -200,20 +216,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const fallbackSameSeg = candidates.filter(p => currentSeg && p.segment === currentSeg && latestUrls.has(p.url));
     const relItems = [...sameSegNotLatest, ...otherNotLatest, ...fallbackSameSeg, ...candidates]
       .filter((item, idx, arr) => arr.findIndex(x => x.url === item.url) === idx)
-      .slice(0, 4);
+      .slice(0, 3);
 
-    relBox.innerHTML = relItems.map(r => `
-      <a href="${r.url}" class="group rounded-2xl border border-emerald-200 bg-white p-3.5 hover:border-emerald-400 hover:shadow-sm transition flex flex-col justify-between">
-        <div>
-          ${renderThumb(r, "aspect-[16/10] w-full rounded-xl overflow-hidden bg-slate-50 border border-emerald-100 mb-3")}
-          <div class="flex items-center justify-between gap-1 mb-1.5">
-            <span class="inline-block rounded-md bg-emerald-100 text-emerald-800 px-2 py-0.5 text-[10px] font-extrabold">${r.category}</span>
-            <span class="text-[10px] font-semibold text-slate-400">${r.updated.replace("Updated ", "")}</span>
-          </div>
-          <h3 class="text-sm font-extrabold text-slate-900 group-hover:text-emerald-700 transition">${r.shortTitle}</h3>
-        </div>
-        <p class="text-xs font-semibold text-emerald-700 mt-1.5">${r.sub}</p>
-      </a>
-    `).join("");
+    relBox.className = "grid grid-cols-1 md:grid-cols-3 gap-5";
+    relBox.innerHTML = relItems.map(renderEvCard).join("");
   }
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", renderEvFeeds);
+} else {
+  renderEvFeeds();
+}
