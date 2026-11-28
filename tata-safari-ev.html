@@ -88,11 +88,52 @@
       <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Tata Safari EV Real-World Range Explained: City, Highway & Battery Pack Math</h1>
     </section>
 
-    <!-- Photo Slot Ready for Upcoming Images -->
-    <section class="mt-6 rounded-3xl border-2 border-dashed border-emerald-300 bg-emerald-50/40 p-6 text-center">
-      <h2 class="text-lg font-extrabold text-slate-900">Tata Safari EV Image &amp; Triple-Screen Gallery</h2>
-      <p class="text-xs text-slate-600 mt-1">Official launch photos and colour shades will be added here as soon as Tata Motors reveals the production Safari EV.</p>
+    <!-- Image Slider with Credits -->
+    <section class="mt-6 rounded-3xl border border-emerald-200 bg-emerald-50/50 p-5 sm:p-8 shadow-sm">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Tata Safari EV Image Gallery (Preview &amp; Renders)</h2>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="moveSafariSlide(-1)" aria-label="Previous Image" class="h-9 w-9 rounded-full border border-emerald-300 bg-white text-emerald-800 font-extrabold hover:bg-emerald-600 hover:text-white transition shadow-sm">&lsaquo;</button>
+          <button type="button" onclick="moveSafariSlide(1)" aria-label="Next Image" class="h-9 w-9 rounded-full border border-emerald-300 bg-white text-emerald-800 font-extrabold hover:bg-emerald-600 hover:text-white transition shadow-sm">&rsaquo;</button>
+        </div>
+      </div>
+
+      <div class="relative rounded-2xl overflow-hidden border border-emerald-200 bg-slate-900 shadow-sm">
+        <div class="safari-slide block relative">
+          <img fetchpriority="high" decoding="async" referrerpolicy="no-referrer" src="https://vehicles24.in/wp-content/uploads/2026/10/Tata-Safari-EV-.jpg" alt="Tata Safari EV Exterior Preview" class="w-full h-64 sm:h-96 object-cover bg-slate-900" />
+          <div class="bg-slate-900/90 text-white px-4 py-2.5 text-xs sm:text-sm font-bold flex items-center justify-between">
+            <span>Tata Safari EV Closed EV Grille &amp; Stance (Preview)</span>
+            <span class="text-emerald-300 text-xs">1 / 2</span>
+          </div>
+        </div>
+        <div class="safari-slide hidden relative">
+          <img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://imgd.aeplcdn.com/1920x1080/n/cw/ec/155631/safari-ev-exterior-right-front-three-quarter-2.jpeg?isig=0&q=80&q=80" alt="Tata Safari EV Three-Quarter Exterior" class="w-full h-64 sm:h-96 object-cover bg-slate-900" />
+          <div class="bg-slate-900/90 text-white px-4 py-2.5 text-xs sm:text-sm font-bold flex items-center justify-between">
+            <span>Tata Safari EV Front Three-Quarter Exterior</span>
+            <span class="text-emerald-300 text-xs">2 / 2</span>
+          </div>
+        </div>
+        <button type="button" onclick="moveSafariSlide(-1)" aria-label="Previous Slide" class="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-white/95 text-slate-900 font-extrabold text-lg shadow hover:bg-emerald-600 hover:text-white transition flex items-center justify-center">&lsaquo;</button>
+        <button type="button" onclick="moveSafariSlide(1)" aria-label="Next Slide" class="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-white/95 text-slate-900 font-extrabold text-lg shadow hover:bg-emerald-600 hover:text-white transition flex items-center justify-center">&rsaquo;</button>
+      </div>
+      <div class="flex items-center justify-center gap-2 mt-3">
+        <button type="button" onclick="goSafariSlide(0)" class="safari-dot h-2.5 w-6 rounded-full transition bg-emerald-600" aria-label="Slide 1"></button>
+        <button type="button" onclick="goSafariSlide(1)" class="safari-dot h-2.5 w-6 rounded-full transition bg-emerald-200 hover:bg-emerald-400" aria-label="Slide 2"></button>
+      </div>
+      <p class="text-[11px] text-slate-500 mt-3 text-center">Official Tata Motors production photos are awaited ahead of launch. Image credits: <a href="https://vehicles24.in/tata-safari-ev-launch-date-price-specs-india/" target="_blank" rel="noopener noreferrer" class="text-emerald-700 underline font-semibold">Vehicles24</a> &amp; <a href="https://www.carwale.com/tata-cars/safari-ev/images/" target="_blank" rel="noopener noreferrer" class="text-emerald-700 underline font-semibold">CarWale</a>.</p>
     </section>
+    <script>
+      let safariIdx = 0;
+      function goSafariSlide(n) {
+        const slides = document.querySelectorAll('.safari-slide');
+        const dots = document.querySelectorAll('.safari-dot');
+        if (!slides.length) return;
+        safariIdx = (n + slides.length) % slides.length;
+        slides.forEach((s, i) => { s.classList.toggle('block', i === safariIdx); s.classList.toggle('hidden', i !== safariIdx); });
+        dots.forEach((d, i) => { d.className = 'safari-dot h-2.5 w-6 rounded-full transition ' + (i === safariIdx ? 'bg-emerald-600' : 'bg-emerald-200 hover:bg-emerald-400'); });
+      }
+      function moveSafariSlide(d) { goSafariSlide(safariIdx + d); }
+    </script>
 
     <!-- Key Highlights -->
     <section class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
