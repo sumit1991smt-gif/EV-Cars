@@ -1,5 +1,15 @@
 const ALL_UPDATED_POSTS = [
   {
+    title: "Mahindra BE 6 BaaS Price List (2026–2027): SPORTEQ, Formula E & Dual-Loan Guide",
+    shortTitle: "Mahindra BE 6 BaaS Price List",
+    updated: "Updated Nov 28, 2026",
+    category: "Mahindra EV",
+    segment: "suv",
+    url: "/mahindra-be-6",
+    sub: "₹11.45L BaaS • 59/70/79 kWh",
+    excerpt: "Official SPORTEQ & Formula E BaaS prices from ₹11.45L, 20-min 20–80% DC fast charge, 5-Star Bharat NCAP & 10-year battery warranty."
+  },
+  {
     title: "Tata Safari EV Real-World Range Explained: City, Highway & Battery Pack Math",
     shortTitle: "Tata Safari EV Range & Specs",
     updated: "Updated Nov 28, 2026",
