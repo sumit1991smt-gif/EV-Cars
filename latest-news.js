@@ -6,6 +6,7 @@ const ALL_UPDATED_POSTS = [
     category: "Mahindra EV",
     segment: "suv",
     url: "/mahindra-be-6",
+    img: "https://auto.hindustantimes.com/cms-images/mahindra_be-6-sporteq/images/exterior_mahindra-be-6-sporteq_front-right-view_3800x2100.webp",
     sub: "₹11.45L BaaS • 59/70/79 kWh",
     excerpt: "Official SPORTEQ & Formula E BaaS prices from ₹11.45L, 20-min 20–80% DC fast charge, 5-Star Bharat NCAP & 10-year battery warranty."
   },
@@ -16,6 +17,7 @@ const ALL_UPDATED_POSTS = [
     category: "Upcoming Tata EV",
     segment: "suv",
     url: "/tata-safari-ev",
+    img: "https://vehicles24.in/wp-content/uploads/2026/10/Tata-Safari-EV-.jpg",
     sub: "Est. ₹26–30L • 65 & 75 kWh",
     excerpt: "Projected 390–490 km city & 310–395 km highway range, triple-screen dashboard, 6 vs 7 seater & Harrier EV vs XEV 9S comparison."
   },
@@ -26,6 +28,7 @@ const ALL_UPDATED_POSTS = [
     category: "EV Car News",
     segment: "suv",
     url: "/hyundai-ioniq-5-price-kolkata",
+    img: "/assets/thumbs/hyundai-ioniq-5-price-kolkata.webp",
     sub: "₹58.80L On-Road • 84 kWh",
     excerpt: "2026 Hyundai Ioniq 5 Kolkata on-road price starts at ₹58.80 Lakh (₹55.71 Lakh ex-showroom) with WB EV RTO breakup & 18-min DC charge."
   },
@@ -36,6 +39,7 @@ const ALL_UPDATED_POSTS = [
     category: "Electric Scooty / Bike",
     segment: "scooty",
     url: "/ampere-nexus-ex-plus",
+    img: "/assets/thumbs/ampere-nexus-ex-plus.webp",
     sub: "₹1,29,999* • 3 kWh LFP",
     excerpt: "Ampere Nexus EX+ starts at ₹1,29,999 with 3 kWh LFP battery (2,00,000 km cycle life), 93 km/h top speed & practical range estimator."
   },
@@ -46,6 +50,7 @@ const ALL_UPDATED_POSTS = [
     category: "Tata EV",
     segment: "suv",
     url: "/tata-harrier-ev",
+    img: "/assets/thumbs/tata-harrier-ev.webp",
     sub: "₹21.79L • BaaS ₹14.49L",
     excerpt: "Official Harrier.ev 65 & 75 kWh QWD specs, 627 km MIDC range, 5-Star BNCAP, 10-image gallery & practical range estimator."
   },
@@ -56,6 +61,7 @@ const ALL_UPDATED_POSTS = [
     category: "Tata EV",
     segment: "commuter",
     url: "/tata-tiago-ev",
+    img: "/assets/thumbs/tata-tiago-ev.webp",
     sub: "₹6.99L • BaaS ₹4.69L",
     excerpt: "2026 Tata Tiago.ev facelift 6 official shades, interior gallery, 19.2 & 24 kWh range estimator & BaaS ₹2.60/km math."
   },
@@ -66,6 +72,7 @@ const ALL_UPDATED_POSTS = [
     category: "Tata EV",
     segment: "suv",
     url: "/tata-sierra-ev",
+    img: "/assets/thumbs/tata-sierra-ev.webp",
     sub: "₹18.79L • 665 km MIDC",
     excerpt: "Official Sierra.ev 63 & 75 kWh brochure specs, Triple Screen cabin, L2+ ADAS & BaaS ₹11.99L + ₹5.50/km breakdown."
   },
@@ -76,6 +83,7 @@ const ALL_UPDATED_POSTS = [
     category: "Tata EV",
     segment: "suv",
     url: "/tata-curvv-ev",
+    img: "/assets/thumbs/tata-curvv-ev.webp",
     sub: "₹17.19L • BaaS ₹10.99L",
     excerpt: "Curvv.ev SeriesX 55 kWh 502 km MIDC range, 5-Star BNCAP rating, Accomplished X vs Empowered X & BaaS pricing."
   },
@@ -86,6 +94,7 @@ const ALL_UPDATED_POSTS = [
     category: "Tata EV",
     segment: "commuter",
     url: "/tata-tigor-ev",
+    img: "/assets/thumbs/tata-tigor-ev.webp",
     sub: "₹12.49L • 316L Boot",
     excerpt: "26 kWh Ziptron sedan specs, 315 km ARAI range, XE/XT/XZ+/XZ+ Lux variants & practical range estimator."
   },
@@ -96,6 +105,7 @@ const ALL_UPDATED_POSTS = [
     category: "AI EV Tool",
     segment: "tool",
     url: "/baas-vs-full-price-calculator",
+    img: null,
     sub: "Compare ₹/km Rental vs EMI",
     excerpt: "Compare Battery-as-a-Service upfront price + per-km battery rental vs full EV ownership EMI & exact breakeven km."
   },
@@ -106,6 +116,7 @@ const ALL_UPDATED_POSTS = [
     category: "Tata EV",
     segment: "suv",
     url: "/tata-nexon-ev",
+    img: "/assets/thumbs/tata-nexon-ev.webp",
     sub: "₹12.49L • BaaS ₹8.99L",
     excerpt: "Nexon.ev 30 & 45 kWh variants, studio colours, BaaS ₹4.40/km comparison & practical range estimator."
   },
@@ -116,6 +127,7 @@ const ALL_UPDATED_POSTS = [
     category: "Tata EV",
     segment: "commuter",
     url: "/tata-punch-ev",
+    img: "/assets/thumbs/tata-punch-ev.webp",
     sub: "₹9.79L • BaaS ₹6.59L",
     excerpt: "Punch.ev 30 & 40 kWh range, 7 official shades, city on-road prices & BaaS ₹2.60/km breakdown."
   },
@@ -126,6 +138,7 @@ const ALL_UPDATED_POSTS = [
     category: "EV Car News",
     segment: "news",
     url: "/foldable-off-grid-solar-ev-charger",
+    img: "/assets/thumbs/foldable-off-grid-solar-ev-charger.webp",
     sub: "1,600W Solar • 2.5 kWh LFP",
     excerpt: "Gaotu Innovation's foldable off-grid solar EV charger features 1,600W solar panels, 2.5kWh LFP storage & smart MPPT charging."
   },
@@ -136,13 +149,21 @@ const ALL_UPDATED_POSTS = [
     category: "Upcoming EV",
     segment: "suv",
     url: "/hyundai-ioniq-p-ev",
+    img: "/assets/thumbs/hyundai-ioniq-p-ev.webp",
     sub: "Sub-4m SUV • Jan 2027",
     excerpt: "Hyundai's India-focused sub-4-metre electric SUV expected price, battery range & launch timeline."
   }
 ];
 
+function renderThumb(item, cls) {
+  if (item.img) {
+    return `<div class="${cls}"><img src="${item.img}" alt="${item.shortTitle}" loading="lazy" decoding="async" referrerpolicy="no-referrer" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" /></div>`;
+  }
+  return `<div class="${cls} flex items-center justify-center bg-emerald-100 text-emerald-700"><svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h2M12 14h4M8 18h2M12 18h4"/></svg></div>`;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  const curPath = window.location.pathname.replace(/\\.html$/, "") || "/";
+  const curPath = window.location.pathname.replace(/\.html$/, "") || "/";
   const currentPost = ALL_UPDATED_POSTS.find(p => p.url === curPath);
   const currentSeg = currentPost ? currentPost.segment : null;
 
@@ -154,15 +175,18 @@ document.addEventListener("DOMContentLoaded", () => {
   if (box) {
     box.className = "space-y-3";
     box.innerHTML = latestItems.map((n, i) => `
-      <a href="${n.url}" class="group flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-2xl border border-emerald-200 bg-white p-4 hover:border-emerald-400 hover:bg-emerald-50/40 transition">
-        <div>
-          <div class="flex items-center gap-2 text-[11px] font-bold text-emerald-700 mb-1">
-            <span>#${i + 1} ${n.category}</span><span class="text-slate-400">&bull; ${n.updated}</span>
+      <a href="${n.url}" class="group flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-emerald-200 bg-white p-3.5 sm:p-4 hover:border-emerald-400 hover:bg-emerald-50/40 transition">
+        <div class="flex items-start sm:items-center gap-3.5 min-w-0">
+          ${renderThumb(n, "w-24 h-16 sm:w-32 sm:h-20 rounded-xl overflow-hidden bg-slate-50 border border-emerald-100 shrink-0")}
+          <div class="min-w-0">
+            <div class="flex flex-wrap items-center gap-2 text-[11px] font-bold text-emerald-700 mb-1">
+              <span>#${i + 1} ${n.category}</span><span class="text-slate-400">&bull; ${n.updated}</span>
+            </div>
+            <h3 class="font-bold text-slate-900 group-hover:text-emerald-700 text-sm sm:text-base line-clamp-2">${n.title}</h3>
+            <p class="text-xs text-slate-600 mt-1 line-clamp-2">${n.excerpt}</p>
           </div>
-          <h3 class="font-bold text-slate-900 group-hover:text-emerald-700 text-sm sm:text-base">${n.title}</h3>
-          <p class="text-xs text-slate-600 mt-1">${n.excerpt}</p>
         </div>
-        <span class="text-xs font-bold text-emerald-700 shrink-0">Read Post &rarr;</span>
+        <span class="text-xs font-bold text-emerald-700 shrink-0 self-end sm:self-center">Read Post &rarr;</span>
       </a>
     `).join("");
   }
@@ -179,13 +203,16 @@ document.addEventListener("DOMContentLoaded", () => {
       .slice(0, 4);
 
     relBox.innerHTML = relItems.map(r => `
-      <a href="${r.url}" class="rounded-2xl border border-emerald-200 bg-white p-4 hover:border-emerald-400 hover:shadow-sm transition block">
-        <div class="flex items-center justify-between gap-1 mb-1.5">
-          <span class="inline-block rounded-md bg-emerald-100 text-emerald-800 px-2 py-0.5 text-[10px] font-extrabold">${r.category}</span>
-          <span class="text-[10px] font-semibold text-slate-400">${r.updated.replace("Updated ", "")}</span>
+      <a href="${r.url}" class="group rounded-2xl border border-emerald-200 bg-white p-3.5 hover:border-emerald-400 hover:shadow-sm transition flex flex-col justify-between">
+        <div>
+          ${renderThumb(r, "aspect-[16/10] w-full rounded-xl overflow-hidden bg-slate-50 border border-emerald-100 mb-3")}
+          <div class="flex items-center justify-between gap-1 mb-1.5">
+            <span class="inline-block rounded-md bg-emerald-100 text-emerald-800 px-2 py-0.5 text-[10px] font-extrabold">${r.category}</span>
+            <span class="text-[10px] font-semibold text-slate-400">${r.updated.replace("Updated ", "")}</span>
+          </div>
+          <h3 class="text-sm font-extrabold text-slate-900 group-hover:text-emerald-700 transition">${r.shortTitle}</h3>
         </div>
-        <h3 class="text-sm font-extrabold text-slate-900">${r.shortTitle}</h3>
-        <p class="text-xs font-semibold text-emerald-700 mt-1">${r.sub}</p>
+        <p class="text-xs font-semibold text-emerald-700 mt-1.5">${r.sub}</p>
       </a>
     `).join("");
   }

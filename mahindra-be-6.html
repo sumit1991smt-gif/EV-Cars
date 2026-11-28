@@ -150,88 +150,207 @@
     </div>
   </section>
 
-  <!-- Practical Range Estimator with Centered Analog Gauge -->
-  <section class="mt-8 rounded-3xl border border-emerald-200 bg-emerald-50/60 p-5 sm:p-8 shadow-sm">
-    <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-      <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Mahindra BE 6 Real-World Range Estimator</h2>
-      <span class="text-xs font-semibold px-3 py-1 rounded-full bg-white border border-emerald-200 text-emerald-800">59 / 70 / 79 kWh Packs</span>
-    </div>
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-      <div class="lg:col-span-7 space-y-4">
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div>
-            <label for="re-pack" class="block text-xs font-bold text-slate-700 mb-1">Battery Pack</label>
-            <select id="re-pack" onchange="calcBe6Range()" class="w-full rounded-xl border border-emerald-300 bg-white px-3 py-2 text-sm font-semibold text-slate-900">
-              <option value="573">59 kWh (573 km MIDC)</option>
-              <option value="652">70 kWh (652 km MIDC)</option>
-              <option value="708" selected>79 kWh (708 km MIDC)</option>
-            </select>
-          </div>
-          <div>
-            <label for="re-route" class="block text-xs font-bold text-slate-700 mb-1">Driving Route</label>
-            <select id="re-route" onchange="calcBe6Range()" class="w-full rounded-xl border border-emerald-300 bg-white px-3 py-2 text-sm font-semibold text-slate-900">
-              <option value="city">City (Stop &amp; Go)</option>
-              <option value="mixed" selected>Mixed (City + Highway)</option>
-              <option value="highway">Highway (90–100 km/h)</option>
-            </select>
-          </div>
-          <div>
-            <label for="re-ac" class="block text-xs font-bold text-slate-700 mb-1">AC &amp; Load</label>
-            <select id="re-ac" onchange="calcBe6Range()" class="w-full rounded-xl border border-emerald-300 bg-white px-3 py-2 text-sm font-semibold text-slate-900">
-              <option value="1.0">Mild AC / 1–2 Pax</option>
-              <option value="0.93" selected>Summer AC / 3–4 Pax</option>
-              <option value="0.86">Peak Heat + Full Load</option>
-            </select>
-          </div>
+  <!-- Practical Range Estimator (Tata Nexon/Punch EV Style) -->
+  <section id="range-estimator" class="mt-8 rounded-3xl border border-emerald-200 bg-white p-6 sm:p-8 shadow-sm">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+      <div class="flex items-start gap-3">
+        <div class="h-10 w-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 12h3l3-7 4 14 3-7h5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div class="rounded-2xl bg-white border border-emerald-200 p-4">
-            <div class="text-xs font-semibold text-slate-500">Est. City Range</div>
-            <div id="re-city-val" class="text-xl font-extrabold text-emerald-700 mt-0.5">535 km</div>
-          </div>
-          <div class="rounded-2xl bg-white border border-emerald-200 p-4">
-            <div class="text-xs font-semibold text-slate-500">Est. Highway Range</div>
-            <div id="re-hwy-val" class="text-xl font-extrabold text-slate-900 mt-0.5">480 km</div>
-          </div>
+        <div>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Mahindra BE 6 Range Estimator</h2>
+          <p class="text-xs sm:text-sm text-slate-600 mt-0.5">Estimate real-world city &amp; highway distance across AC, traffic, terrain, weather, passengers &amp; drive modes.</p>
         </div>
       </div>
-      <div class="lg:col-span-5 flex flex-col items-center justify-center bg-white rounded-2xl border border-emerald-200 p-5">
-        <svg viewBox="0 0 220 130" class="w-56 h-32 overflow-visible" aria-label="Estimated Range Gauge">
-          <path d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke="#d1fae5" stroke-width="16" stroke-linecap="round" />
-          <path id="re-arc" d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke="#059669" stroke-width="16" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="70" />
-          <g id="re-needle" transform="rotate(45 110 110)">
-            <line x1="110" y1="110" x2="110" y2="34" stroke="#0f172a" stroke-width="3.5" stroke-linecap="round" />
-            <circle cx="110" cy="110" r="7" fill="#059669" />
+      <div class="flex flex-wrap gap-2">
+        <button type="button" onclick="setRePack('79')" data-re-pack="79" class="re-pack-btn rounded-xl border px-3.5 py-2 text-xs font-extrabold transition border-emerald-600 bg-emerald-600 text-white">79 kWh (708 km MIDC)</button>
+        <button type="button" onclick="setRePack('70')" data-re-pack="70" class="re-pack-btn rounded-xl border px-3.5 py-2 text-xs font-extrabold transition border-emerald-200 bg-white text-slate-700 hover:bg-emerald-50">70 kWh (652 km MIDC)</button>
+        <button type="button" onclick="setRePack('59')" data-re-pack="59" class="re-pack-btn rounded-xl border px-3.5 py-2 text-xs font-extrabold transition border-emerald-200 bg-white text-slate-700 hover:bg-emerald-50">59 kWh (573 km MIDC)</button>
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <!-- State of Charge -->
+      <div>
+        <div class="flex items-center justify-between text-xs font-extrabold uppercase tracking-wide text-slate-600 mb-1.5">
+          <span>Battery State of Charge</span>
+          <span id="re-soc-val" class="rounded-lg bg-emerald-100 text-emerald-800 px-2.5 py-0.5 text-xs font-extrabold">95%</span>
+        </div>
+        <input id="re-soc" type="range" min="15" max="100" value="95" oninput="updateRangeEst()" class="w-full accent-emerald-600 cursor-pointer h-2 rounded-lg bg-emerald-100" />
+      </div>
+
+      <!-- AC Usage -->
+      <div>
+        <div class="text-xs font-extrabold uppercase tracking-wide text-slate-600 mb-1.5">AC Usage</div>
+        <div class="grid grid-cols-3 gap-2">
+          <button type="button" onclick="setReOpt('ac','off')" data-re-ac="off" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">Off</button>
+          <button type="button" onclick="setReOpt('ac','med')" data-re-ac="med" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">Moderate</button>
+          <button type="button" onclick="setReOpt('ac','high')" data-re-ac="high" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">High</button>
+        </div>
+      </div>
+
+      <!-- Traffic -->
+      <div>
+        <div class="text-xs font-extrabold uppercase tracking-wide text-slate-600 mb-1.5">Traffic</div>
+        <div class="grid grid-cols-3 gap-2">
+          <button type="button" onclick="setReOpt('traffic','light')" data-re-traffic="light" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">Light</button>
+          <button type="button" onclick="setReOpt('traffic','normal')" data-re-traffic="normal" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">Normal</button>
+          <button type="button" onclick="setReOpt('traffic','heavy')" data-re-traffic="heavy" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">Heavy</button>
+        </div>
+      </div>
+
+      <!-- Terrain -->
+      <div>
+        <div class="text-xs font-extrabold uppercase tracking-wide text-slate-600 mb-1.5">Terrain</div>
+        <div class="grid grid-cols-3 gap-2">
+          <button type="button" onclick="setReOpt('terrain','flat')" data-re-terrain="flat" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">Flat</button>
+          <button type="button" onclick="setReOpt('terrain','mixed')" data-re-terrain="mixed" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">Mixed</button>
+          <button type="button" onclick="setReOpt('terrain','hilly')" data-re-terrain="hilly" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">Hilly</button>
+        </div>
+      </div>
+
+      <!-- Weather -->
+      <div>
+        <div class="text-xs font-extrabold uppercase tracking-wide text-slate-600 mb-1.5">Weather</div>
+        <div class="grid grid-cols-3 gap-2">
+          <button type="button" onclick="setReOpt('weather','mild')" data-re-weather="mild" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">Mild</button>
+          <button type="button" onclick="setReOpt('weather','hot')" data-re-weather="hot" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">Hot</button>
+          <button type="button" onclick="setReOpt('weather','cold')" data-re-weather="cold" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">Cold</button>
+        </div>
+      </div>
+
+      <!-- Passengers -->
+      <div>
+        <div class="flex items-center justify-between text-xs font-extrabold uppercase tracking-wide text-slate-600 mb-1.5">
+          <span>Passengers</span>
+          <span id="re-pax-val" class="rounded-lg bg-emerald-100 text-emerald-800 px-2.5 py-0.5 text-xs font-extrabold">1 person</span>
+        </div>
+        <div class="grid grid-cols-5 gap-2">
+          <button type="button" onclick="setReOpt('pax',1)" data-re-pax="1" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">1</button>
+          <button type="button" onclick="setReOpt('pax',2)" data-re-pax="2" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">2</button>
+          <button type="button" onclick="setReOpt('pax',3)" data-re-pax="3" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">3</button>
+          <button type="button" onclick="setReOpt('pax',4)" data-re-pax="4" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">4</button>
+          <button type="button" onclick="setReOpt('pax',5)" data-re-pax="5" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">5</button>
+        </div>
+      </div>
+
+      <!-- Drive Mode -->
+      <div>
+        <div class="text-xs font-extrabold uppercase tracking-wide text-slate-600 mb-1.5">Driving Mode</div>
+        <div class="grid grid-cols-3 gap-2">
+          <button type="button" onclick="setReOpt('mode','eco')" data-re-mode="eco" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">Range / Eco</button>
+          <button type="button" onclick="setReOpt('mode','city')" data-re-mode="city" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">Everyday</button>
+          <button type="button" onclick="setReOpt('mode','sport')" data-re-mode="sport" class="re-opt rounded-xl border py-2.5 text-xs font-bold transition">Race / Boost</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Output Card with Gauge -->
+    <div class="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50/70 p-5 sm:p-6">
+      <div class="flex flex-col items-center text-center">
+        <svg viewBox="0 0 220 125" class="w-56 h-32 overflow-visible" aria-hidden="true">
+          <defs>
+            <linearGradient id="reGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#f59e0b"/>
+              <stop offset="55%" stop-color="#10b981"/>
+              <stop offset="100%" stop-color="#059669"/>
+            </linearGradient>
+          </defs>
+          <path d="M 25 105 A 85 85 0 1 1 195 105" fill="none" stroke="#e2e8f0" stroke-width="14" stroke-linecap="round"/>
+          <path id="re-arc" d="M 25 105 A 85 85 0 1 1 195 105" fill="none" stroke="url(#reGrad)" stroke-width="14" stroke-linecap="round" stroke-dasharray="385" stroke-dashoffset="0"/>
+          <g id="re-needle" transform="rotate(60 110 105)">
+            <line x1="110" y1="105" x2="110" y2="32" stroke="#0f172a" stroke-width="3.5" stroke-linecap="round"/>
+            <circle cx="110" cy="105" r="6" fill="#0f172a"/>
           </g>
         </svg>
-        <div class="text-center -mt-2">
-          <div id="re-main-val" class="text-2xl font-extrabold text-slate-900">505 km</div>
-          <div class="text-xs font-medium text-slate-500">Estimated Real-World Range</div>
+        <div class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 -mt-3">Estimated Range</div>
+        <div id="re-total-km" class="text-3xl sm:text-4xl font-extrabold text-emerald-700 mt-0.5">-- km</div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5">
+        <div class="rounded-xl border border-emerald-200 bg-white p-3.5 text-center">
+          <div class="text-[11px] font-bold uppercase text-slate-500">City Estimate</div>
+          <div id="re-city-km" class="text-lg font-extrabold text-slate-900 mt-0.5">-- km</div>
+        </div>
+        <div class="rounded-xl border border-emerald-200 bg-white p-3.5 text-center">
+          <div class="text-[11px] font-bold uppercase text-slate-500">Highway Estimate</div>
+          <div id="re-hwy-km" class="text-lg font-extrabold text-slate-900 mt-0.5">-- km</div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <script>
-    function calcBe6Range() {
-      const midc = parseFloat(document.getElementById('re-pack').value);
-      const route = document.getElementById('re-route').value;
-      const ac = parseFloat(document.getElementById('re-ac').value);
-      const routeFactor = route === 'city' ? 0.81 : (route === 'highway' ? 0.72 : 0.765);
-      const est = Math.round(midc * routeFactor * ac);
-      const cityEst = Math.round(midc * 0.81 * ac);
-      const hwyEst = Math.round(midc * 0.72 * ac);
-      document.getElementById('re-main-val').textContent = est + ' km';
-      document.getElementById('re-city-val').textContent = cityEst + ' km';
-      document.getElementById('re-hwy-val').textContent = hwyEst + ' km';
-      const pct = Math.min(1, Math.max(0.1, est / 650));
-      const offset = Math.round(283 * (1 - pct));
-      document.getElementById('re-arc').setAttribute('stroke-dashoffset', offset);
-      const deg = -90 + pct * 180;
-      document.getElementById('re-needle').setAttribute('transform', 'rotate(' + deg.toFixed(1) + ' 110 110)');
-    }
-    calcBe6Range();
-  </script>
+      <div class="rounded-xl border border-emerald-200 bg-white p-3 text-center mt-3">
+        <div class="text-[11px] font-bold uppercase text-slate-500">Efficiency (Claimed MIDC)</div>
+        <div id="re-eff" class="text-base font-extrabold text-slate-900 mt-0.5">-- km/kWh</div>
+      </div>
+
+      <div id="re-tip" class="mt-3 rounded-xl border border-emerald-200 bg-emerald-100/70 px-4 py-2.5 text-xs font-medium text-emerald-950"></div>
+    </div>
+
+    <script>
+      const RE_PACKS = [
+        { id: "79", label: "79 kWh (708 km MIDC)", kwh: 79, midc: 708, c75: 515 },
+        { id: "70", label: "70 kWh (652 km MIDC)", kwh: 70, midc: 652, c75: 465 },
+        { id: "59", label: "59 kWh (573 km MIDC)", kwh: 59, midc: 573, c75: 415 }
+      ];
+      const reState = { packId: "79", ac: "med", traffic: "normal", terrain: "mixed", weather: "mild", pax: 1, mode: "city" };
+      const RE_FACTORS = {
+        ac: { off: 1.06, med: 1.00, high: 0.94 },
+        traffic: { light: 1.04, normal: 1.00, heavy: 0.93 },
+        terrain: { flat: 1.02, mixed: 1.00, hilly: 0.89 },
+        weather: { mild: 1.02, hot: 0.96, cold: 0.92 },
+        mode: { eco: 1.06, city: 1.00, sport: 0.90 }
+      };
+
+      function setRePack(id) { reState.packId = id; updateRangeEst(); }
+      function setReOpt(k, v) { reState[k] = v; updateRangeEst(); }
+
+      function updateRangeEst() {
+        const pack = RE_PACKS.find(p => p.id === reState.packId) || RE_PACKS[0];
+        const soc = parseInt(document.getElementById("re-soc").value, 10) || 95;
+        document.getElementById("re-soc-val").textContent = soc + "%";
+        document.getElementById("re-pax-val").textContent = reState.pax === 1 ? "1 person" : `${reState.pax} people`;
+
+        document.querySelectorAll(".re-pack-btn").forEach(b => {
+          const on = b.dataset.rePack === reState.packId;
+          b.className = "re-pack-btn rounded-xl border px-3.5 py-2 text-xs font-extrabold transition " + (on ? "border-emerald-600 bg-emerald-600 text-white" : "border-emerald-200 bg-white text-slate-700 hover:bg-emerald-50");
+        });
+        ["ac","traffic","terrain","weather","pax","mode"].forEach(group => {
+          document.querySelectorAll(`[data-re-${group}]`).forEach(b => {
+            const val = b.getAttribute(`data-re-${group}`);
+            const on = String(reState[group]) === String(val);
+            b.className = "re-opt rounded-xl border py-2.5 text-xs font-bold transition " + (on ? "border-emerald-600 bg-emerald-600 text-white shadow-sm" : "border-emerald-200 bg-white text-slate-700 hover:bg-emerald-50");
+          });
+        });
+
+        const paxFactor = 1 - (reState.pax - 1) * 0.025;
+        const mult = RE_FACTORS.ac[reState.ac] * RE_FACTORS.traffic[reState.traffic] * RE_FACTORS.terrain[reState.terrain] * RE_FACTORS.weather[reState.weather] * RE_FACTORS.mode[reState.mode] * paxFactor;
+        const baseReal = pack.c75 * (soc / 100);
+        const est = Math.max(20, Math.round(baseReal * mult));
+        const city = Math.round(est * 1.07);
+        const hwy = Math.round(est * 0.92);
+        const eff = (pack.midc / pack.kwh).toFixed(1);
+
+        document.getElementById("re-total-km").textContent = est + " km";
+        document.getElementById("re-city-km").textContent = city + " km";
+        document.getElementById("re-hwy-km").textContent = hwy + " km";
+        document.getElementById("re-eff").textContent = eff + " km/kWh";
+
+        const ratio = Math.min(1, Math.max(0.05, est / pack.midc));
+        const deg = -115 + ratio * 230;
+        document.getElementById("re-needle").setAttribute("transform", `rotate(${deg.toFixed(1)} 110 105)`);
+        const arcLen = 385;
+        document.getElementById("re-arc").setAttribute("stroke-dashoffset", (arcLen * (1 - ratio)).toFixed(1));
+
+        const ecoModEst = Math.round(baseReal * RE_FACTORS.ac.med * RE_FACTORS.traffic[reState.traffic] * RE_FACTORS.terrain[reState.terrain] * RE_FACTORS.weather[reState.weather] * RE_FACTORS.mode.eco * paxFactor);
+        const gain = ecoModEst - est;
+        document.getElementById("re-tip").innerHTML = gain > 8
+          ? `With these settings, estimated range is about <strong>${est} km</strong> from ${soc}% charge. Switching to Range/Eco mode &amp; moderate AC could add <strong>+${gain} km</strong>.`
+          : `With these settings, estimated range is about <strong>${est} km</strong> from ${soc}% charge on the ${pack.kwh} kWh pack.`;
+      }
+
+      document.addEventListener("DOMContentLoaded", updateRangeEst);
+    </script>
+  </section>
 
   <!-- Official Colour Options -->
   <section class="mt-8 rounded-3xl border border-emerald-200 bg-emerald-50/50 p-5 sm:p-8 shadow-sm">
@@ -307,6 +426,11 @@
       <li><strong>Run the Math First:</strong> Use our <a href="/baas-vs-full-price-calculator" class="text-emerald-700 font-semibold underline">BaaS vs Full Price Calculator</a> and <a href="/ev-car-loan-emi-calculator" class="text-emerald-700 font-semibold underline">EV Car Loan EMI Calculator</a> to compare total interest outgo against outright purchase.</li>
     </ul>
 
+        <div class="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div class="text-sm"><strong class="text-slate-900">Should you pick ₹11.45L BaaS or ₹19.45L Outright?</strong><p class="text-xs text-slate-600 mt-0.5">Test your exact monthly km &amp; loan tenure in our AI BaaS vs Full Price Calculator.</p></div>
+      <a href="/baas-vs-full-price-calculator" class="shrink-0 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-700 transition text-center">Open BaaS AI Calculator &rarr;</a>
+    </div>
+
     <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 pt-2">3. Mahindra BE 6 SPORTEQ 59 kWh vs 70 kWh vs 79 kWh &amp; Highway Real-World Range</h2>
     <p>Evaluating <strong>Mahindra BE 6 SPORTEQ 59 kWh vs 79 kWh</strong> (plus the mid-spec 70 kWh pack) comes down to highway cruising needs and peak motor output:</p>
     <div class="overflow-x-auto rounded-2xl border border-emerald-200">
@@ -335,6 +459,11 @@
     <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 pt-2">4. Mahindra BE 6 Charging Time 0 to 80% &amp; Home AC Options</h2>
     <p>Built on the INGLO platform, the BE 6 supports ultra-fast DC charging up to <strong>140 kW (59 kWh), 160 kW (70 kWh), and 180 kW (79 kWh)</strong>. Mahindra officially rates <strong>20% to 80% in 20 minutes</strong>; from a depleted <strong>0% to 80%</strong> state of charge, expect roughly <strong>25–28 minutes</strong> on a 180 kW+ public charger depending on ambient temperature and battery pre-conditioning.</p>
 
+        <div class="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div class="text-sm"><strong class="text-slate-900">How much does BE 6 save vs a Petrol SUV?</strong><p class="text-xs text-slate-600 mt-0.5">Compare home AC charging cost vs ₹100+/L petrol over 5 years.</p></div>
+      <a href="/petrol-vs-ev-savings-calculator" class="shrink-0 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-700 transition text-center">Calculate 5-Yr Fuel Savings &rarr;</a>
+    </div>
+
     <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 pt-2">5. Mahindra BE 6 Safety Rating (Bharat NCAP) &amp; Battery Warranty</h2>
     <ul class="list-disc pl-5 space-y-2">
       <li><strong>5-Star Bharat NCAP Rating:</strong> The Mahindra BE 6 achieved a <strong>5-Star Bharat NCAP rating</strong> with <strong>31.97 / 32 points</strong> in Adult Occupant Protection, paired with up to 7 airbags, 360-degree camera, blind-spot monitoring, and Level 2 ADAS.</li>
@@ -345,6 +474,14 @@
     <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 pt-2">6. Mahindra BE 6 Formula E Edition Features List &amp; 3-Screen Interior Guide</h2>
     <p>The <strong>BE 6 Formula E (FE)</strong> and <strong>FE FOUR</strong> trims (79 kWh only, starting at ₹14.45 Lakh BaaS / ₹24.45 Lakh outright) add motorsport-inspired Firestorm Orange accents, Formula E badging, bespoke aero wheels, and 0–100 km/h performance in <strong>6.7 seconds</strong> (210 kW / 285 PS, 380 Nm).</p>
     <p>Inside, the <strong>Mahindra BE 6 interior 3-screen setup</strong> pairs a driver instrument display, a central infotainment touchscreen, and a dedicated co-driver entertainment display across the cockpit—letting you run navigation and ADAS telemetry on the driver cluster while the front passenger streams media independently.</p>
+
+        <div class="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div class="text-sm"><strong class="text-slate-900">Cross-shopping BE 6 vs Harrier.ev or Curvv.ev?</strong><p class="text-xs text-slate-600 mt-0.5">Run an instant AI spec-by-spec comparison or take our India EV quiz.</p></div>
+      <div class="flex flex-wrap gap-2 shrink-0">
+        <a href="/ev-car-compare-and-analysis" class="rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-700 transition">AI Compare Tool &rarr;</a>
+        <a href="/#choose-my-ev" class="rounded-xl border border-emerald-300 bg-white px-4 py-2 text-xs font-bold text-emerald-800 hover:bg-emerald-50 transition">Choose My EV Quiz</a>
+      </div>
+    </div>
 
     <div class="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-4 text-sm">
       <strong>Explore Related EVs on EV of India:</strong>
