@@ -1,5 +1,15 @@
 const ALL_UPDATED_POSTS = [
   {
+    title: "Tata Safari EV Real-World Range Explained: City, Highway & Battery Pack Math",
+    shortTitle: "Tata Safari EV Range & Specs",
+    updated: "Updated Nov 28, 2026",
+    category: "Upcoming Tata EV",
+    segment: "suv",
+    url: "/tata-safari-ev",
+    sub: "Est. ₹26–30L • 65 & 75 kWh",
+    excerpt: "Projected 390–490 km city & 310–395 km highway range, triple-screen dashboard, 6 vs 7 seater & Harrier EV vs XEV 9S comparison."
+  },
+  {
     title: "Hyundai Ioniq 5 (2026) On-Road Price in Kolkata: WB RTO, 84 kWh Specs & Review",
     shortTitle: "Hyundai Ioniq 5 (2026) Kolkata Price",
     updated: "Updated Nov 28, 2026",
